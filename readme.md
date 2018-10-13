@@ -22,8 +22,16 @@ terraform init
 terraform validate
 # check the terraform resources plan
 terraform plan
-# apply the plan
+# apply the plan, input 'yes' at prompt window
 terraform apply
+
+
+```
+
+Destroy resources that created
+```
+# input 'yes' at prompt window 
+terraform destroy
 ```
 
 # To do list
