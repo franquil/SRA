@@ -1,0 +1,7 @@
+*.tfstate
+*.backup
+*.txt
+*.tfvars
+.ssh/
+.terraform/
+.aws/
