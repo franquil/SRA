@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
 #######################################################
-# 基于Amazon linux系统安装docker
-# 参考：
+# Based on Amazon linux to install docker
+# reference：
 #   - https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
 #######################################################
 
-# 遇到错误后退出
 set -o errexit
 set -o errtrace
-set -o nounset # 禁止使用未定义变量
+set -o nounset
 set -o pipefail
 
 function mainScript() {
@@ -18,6 +17,9 @@ function mainScript() {
   service docker start
   usermod -a -G docker ec2-user
   docker info
+  curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+  docker-compose --version
   echo -n
 }
 
@@ -29,4 +31,3 @@ function safeExit() {
 mainScript
 
 safeExit
-

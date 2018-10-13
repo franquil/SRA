@@ -54,6 +54,7 @@ resource "aws_lightsail_instance" "sra_app" {
   #   - https://www.terraform.io/docs/provisioners/remote-exec.html
   provisioner "remote-exec" {
     inline = [
+      "aws lightsail attach-static-ip --static-ip-name SRA-app-Seoul --instance-name ${aws_lightsail_instance.sra_app.name}"
       "chmod +x ./scripts/install_docker.sh",
       "sudo ./scripts/install_docker.sh"
     ]

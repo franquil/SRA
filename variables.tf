@@ -4,7 +4,7 @@
 #   - https://www.terraform.io/intro/getting-started/variables.html
 
 variable "project_name" {
-  default = "RSA_app"
+  default = "SRA_app"
 }
 
 # AWS platform access key
@@ -54,5 +54,5 @@ variable "blueprint_id" {
 #           2xlarge_2_0
 # Use aws cli：`aws lightsail get-bundles` to see more.
 variable "bundle_id" {
-  default = "nano_2_0"
+  default = "micro_2_0"
 }
