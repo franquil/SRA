@@ -1,0 +1,36 @@
+# Docker containers stack for SRA-app
+# References:
+#   - https://hub.docker.com/_/mysql/
+#   - https://github.com/nodejs/docker-node
+#   - https://hub.docker.com/_/node/
+
+version: '3'
+services:
+  node:
+    image: "node:8"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./code:/home/node/app
+    expose:
+      - "8081"
+    command: "npm start"
+  mysqldb:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - "${PWD}/.mysqldb-data:/var/lib/mysql"
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8080:8080"

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+
+        .showItem {
+            display: list-item;
+        }
+
+        .hideItem {
+            display: none;
+        }
+
+        .square, .btn {
+            border-radius: 0px !important;
+        }
+
+        /* -- color classes -- */
+        .coralbg {
+            background-color: #FA396F;
+        }
+
+        .coral {
+            color: #FA396f;
+        }
+
+        .turqbg {
+            background-color: #46D8D2;
+        }
+
+        .turq {
+            color: #46D8D2;
+        }
+
+        .white {
+            color: #fff !important;
+        }
+
+        /* -- The "User's Menu Container" specific elements. Custom container for the snippet -- */
+        div.user-menu-container {
+            z-index: 10;
+            background-color: #fff;
+            margin-top: 20px;
+            background-clip: padding-box;
+            opacity: 0.97;
+            filter: alpha(opacity=97);
+            -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+        }
+
+        div.user-menu-container .btn-lg {
+            padding: 0px 12px;
+        }
+
+        div.user-menu-container h4 {
+            font-weight: 300;
+            color: #8b8b8b;
+        }
+
+        div.user-menu-container a, div.user-menu-container .btn {
+            transition: 1s ease;
+        }
+
+        div.user-menu-container .thumbnail {
+            width: 100%;
+            min-height: 200px;
+            border: 0px !important;
+            padding: 0px;
+            border-radius: 0;
+            border: 0px !important;
+        }
+
+        /* -- Vertical Button Group -- */
+        div.user-menu-container .btn-group-vertical {
+            display: block;
+        }
+
+        div.user-menu-container .btn-group-vertical > a {
+            padding: 20px 25px;
+            background-color: #46D8D2;
+            color: white;
+            border-color: #fff;
+        }
+
+        div.btn-group-vertical > a:hover {
+            color: white;
+            border-color: white;
+        }
+
+        div.btn-group-vertical > a.active {
+            background: #FA396F;
+            box-shadow: none;
+            color: white;
+        }
+
+        /* -- Individual button styles of vertical btn group -- */
+        div.user-menu-btns {
+            padding-right: 0;
+            padding-left: 0;
+            padding-bottom: 0;
+        }
+
+        div.user-menu-btns div.btn-group-vertical > a.active:after {
+            content: '';
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            margin-top: -13px;
+            border-left: 0;
+            border-bottom: 13px solid transparent;
+            border-top: 13px solid transparent;
+            border-left: 10px solid #46D8D2;
+        }
+
+        /* -- The main tab & content styling of the vertical buttons info-- */
+        div.user-menu-content {
+            color: #323232;
+        }
+
+        ul.user-menu-list {
+            list-style: none;
+            margin-top: 20px;
+            margin-bottom: 0;
+            padding: 10px;
+            border: 1px solid #eee;
+        }
+
+        ul.user-menu-list > li {
+            padding-bottom: 8px;
+            text-align: center;
+        }
+
+        div.user-menu div.user-menu-content:not(.active) {
+            display: none;
+        }
+
+        /* -- The btn stylings for the btn icons -- */
+        .btn-label {
+            position: relative;
+            left: -12px;
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 3px 0 0 3px;
+        }
+
+        .btn-labeled {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        /* -- Custom classes for the snippet, won't effect any existing bootstrap classes of your site, but can be reused. -- */
+
+        .user-pad {
+            padding: 20px 25px;
+        }
+
+        .no-pad {
+            padding-right: 0;
+            padding-left: 0;
+            padding-bottom: 0;
+        }
+
+        .user-details {
+            background: #eee;
+            min-height: 333px;
+        }
+
+        .user-image {
+            max-height: 200px;
+            overflow: hidden;
+        }
+
+        .overview h3 {
+            font-weight: 300;
+            margin-top: 15px;
+            margin: 10px 0 0 0;
+        }
+
+        .overview h4 {
+            font-weight: bold !important;
+            font-size: 40px;
+            margin-top: 0;
+        }
+
+        .view {
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .view p {
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+        .caption {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(70, 216, 210, 0.44);
+            width: 100%;
+            height: 100%;
+            padding: 2%;
+            display: none;
+            text-align: center;
+            color: #fff !important;
+            z-index: 2;
+        }
+
+        .caption a {
+            padding-right: 10px;
+            color: #fff;
+        }
+
+        .info {
+            display: block;
+            padding: 10px;
+            background: #eee;
+            text-transform: uppercase;
+            font-weight: 300;
+            text-align: right;
+        }
+
+        .info p, .stats p {
+            margin-bottom: 0;
+        }
+
+        .stats {
+            display: block;
+            padding: 10px;
+            color: white;
+        }
+
+        .share-links {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .square, .btn {
+            border-radius: 0px !important;
+        }
+
+        /* -- media query for user profile image -- */
+        @media (max-width: 767px) {
+            .user-image {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div id="branding">
+        <h1><span class="highlight">Smart Recruitment Assistant</span></h1>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <!-- <li><a href="services.html">Services</a></li> -->
+          <a href="register.html">Register</a>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section style="padding: 15px 0">
+    <div class="container">
+        <div class="row">
+            <div class="col-3" style="background-color: #f7f7f7;">
+                <form>
+                <!-- Page Content -->
+                <!-- Control buttons -->
+                <h1>Personalities</h1>
+                <ul class="filterSection">
+                    <li>
+                        <label>
+                            <input type="checkbox" value="CREATIVE"/>
+                        </label>
+                        <label>Creative</label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" value="PASSIONATE"/>
+                        </label>
+                        <label>PASSIONATE</label>
+                    </li>                    
+                    <li>
+                        <label>
+                            <input type="checkbox" value="FRIENDLY"/>
+                        </label>
+                        <label>Friendly</label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" value="WARM"/>
+                        </label>
+                        <label>Warm</label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" value="LEADERSHIP"/>
+                        </label>
+                        <label>Leadership</label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" value="CHARISMA"/>
+                        </label>
+                        <label>Charisma</label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" value="SELF-CONTROL"/>
+                        </label>
+                        <label>Self-Control</label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" value="PRACTICALITY"/>
+                        </label>
+                        <label>Practicality</label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" value="SUPREMACY"/>
+                        </label>
+                        <label>Supremacy</label>
+                    </li>
+                </ul>
+            </form>
+                <hr/>
+                <h2>Guide line</h2>
+                <h5>Manager:</h5>
+                <p>leadership, passionate, self-control, charisma, warm, creative, practicality. <br/></p>
+                <h5>Sales man:</h5>
+                <p>passionate, charisma, self-control, friendly, warm, practicality. <br/></p>
+                <h5>Software developer:</h5>
+                <p>creative, passionate, self-control, practicality. <br/></p>
+                </p>
+            </div>
+            <div class="col-9">
+                <p>Result</p>
+                <ul id="itemsToFilter">
+                    <li data-type="CREATIVE">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="PASSIONATE">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name1</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="CHARISMA">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name2</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="SELF-CONTROL">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name3</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="PRACTICALITY">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name4</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="LEADERSHIP">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name5</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="CHARISMA">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name6</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="WARM">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name7</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="FRIENDLY">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name8</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="CREATIVE">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name9</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="SELF-CONTROL">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name10</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="WARM">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name11</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="PRACTICALITY">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name12</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="CREATIVE">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name13</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="SELF-CONTROL">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name14</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="CREATIVE">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name15</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                    <li data-type="FRIENDLY">
+                        <div class="row" style="background-color: #6c757d;">
+                            <div class="col-md-3">
+                                <img style="border-radius: 50%; margin: 5px;"
+                                     src="https://api.adorable.io/avatars/181/abott@adorable.png" alt="Avatar">
+                            </div>
+                            <div class="col-md-9">
+                                <h1>Name16</h1>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+                                    ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                                    sint occaecat cupidatat non proident</p>
+
+                            </div>
+                        </div>
+                        <br/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </seciton>
+  <footer>
+    <p>Smart Recruitment Assistant, Copyright © 2018</p>
+  </footer>
+<!-- Bootstrap core JavaScript-->
+<!--<script src="/vendor/jquery/jquery.min.js"></script>-->
+<!--<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+
+<!--&lt;!&ndash; Core plugin JavaScript&ndash;&gt;-->
+<!--<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>-->
+
+<!--&lt;!&ndash; Custom scripts for all pages&ndash;&gt;-->
+<!--<script src="/js/sb-admin.min.js"></script>-->
+<!--<script type="javascript" src="/js/checkbox.js"></script>-->
+<script>
+    // get all of our list items
+    var itemsToFilter = document.querySelectorAll("#itemsToFilter li");
+
+    //setup click event handlers on our checkboxes
+    var checkBoxes = document.querySelectorAll(".filterSection li input");
+
+    for (var i = 0; i < checkBoxes.length; i++) {
+        checkBoxes[i].addEventListener("click", filterItems, false);
+        // checkBoxes[i].checked = true;
+    }
+
+    // the event handler!
+    function filterItems(e) {
+        var clickedItem = e.target;
+        if (clickedItem.checked == true) {
+            // alert('clickedItem' + clickedItem);
+            // hidenAll();
+            hideOrShowItems(clickedItem.value, "showItem", "hideItem");
+            // showRelatedItems(clickedItem.value);
+        } else {
+            hideOrShowItems(clickedItem.value, "hideItem", "showItem");
+        }
+        /*
+        
+        else if (clickedItem.checked == false) {
+            hideOrShowItems(clickedItem.value, "hiddenItem", "showItem");
+        } else {
+            // deal with the indeterminate state if needed
+        }
+        */
+    }
+
+    function hiddenAll() {
+        for (var i = 0; i < itemsToFilter.length; i++) {
+            var currentItem = itemsToFilter[i];
+            currentitem.className = 'hideItem'
+        }
+    }
+
+    function showCheckedItems() {
+        for (var i = 0; i < itemsToFilter.length; i++) {
+            var currentItem = itemsToFilter[i];
+        } 
+    }
+
+    // add or remove classes to show or hide our content
+    function hideOrShowItems(itemType, classToRemove, classToAdd) {
+        for (var i = 0; i < itemsToFilter.length; i++) {
+            var currentItem = itemsToFilter[i];
+            if (currentItem.getAttribute("data-type") == itemType) {
+                // alert('clicked, add currentitem = '+currentItem.className);
+                 // removeClass(currentItem, classToRemove);
+                //currentItem.className = classToRemove;
+                // currentItem.className = classToRemove;
+                // alert('clicked, add currentitem = '+currentItem.className);
+            } else {
+                currentItem.className = classToAdd;
+                // alert('remove, currentitem = '+currentItem);
+                // removeClass(currentItem, classToAdd);
+                // addClass(currentItem, classToAdd);                
+            }
+        }
+    }
+
+    //
+    // Helper functions for adding and removing class values
+    //
+    function addClass(element, classToAdd) {
+        var currentClassValue = element.className;
+
+        if (currentClassValue.indexOf(classToAdd) == -1) {
+            if ((currentClassValue == null) || (currentClassValue === "")) {
+                element.className = classToAdd;
+            } else {
+                element.className += " " + classToAdd;
+            }
+        }
+    }
+
+    function removeClass(element, classToRemove) {
+        var currentClassValue = element.className;
+
+        if (currentClassValue == classToRemove) {
+            element.className = "";
+            return;
+        }
+
+        var classValues = currentClassValue.split(" ");
+        var filteredList = [];
+
+        for (var i = 0; i < classValues.length; i++) {
+            if (classToRemove != classValues[i]) {
+                filteredList.push(classValues[i]);
+            }
+        }
+
+        element.className = filteredList.join(" ");
+    }
+</script>
+
+</body>
+</html>

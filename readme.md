@@ -8,7 +8,7 @@ A platform assist recruiter hiring people smartly.
 - AWS access key and credentials [https://aws.amazon.com/](https://aws.amazon.com/)
 - AWS lightsail keypair and private key [https://lightsail.aws.amazon.com](https://lightsail.aws.amazon.com)
 
-# Setup
+# Setup on aws
 
 ```
 git clone git@bitbucket.org:frankquil/sra-app.git
@@ -33,6 +33,9 @@ Destroy resources that created
 # input 'yes' at prompt window 
 terraform destroy
 ```
+
+# setup locally
+
 
 # To do list
 

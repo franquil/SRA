@@ -1,0 +1,34 @@
+header.app-header.navbar
+  button.navbar-toggler.sidebar-toggler.d-lg-none.mr-auto(type="button" data-toggle="sidebar-show")
+    span.navbar-toggler-icon
+  a.navbar-brand(href="#")
+    img.navbar-brand-full(src="img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo")
+    img.navbar-brand-minimized(src="img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo")
+  button.navbar-toggler.sidebar-toggler.d-md-down-none(type="button" data-toggle="sidebar-lg-show")
+    span.navbar-toggler-icon
+  if !starter
+    ul.nav.navbar-nav.d-md-down-none
+      li.nav-item.px-3
+        a.nav-link(href="#") Dashboard
+      li.nav-item.px-3
+        a.nav-link(href="#") Users
+    ul.nav.navbar-nav.ml-auto
+      li.nav-item.d-md-down-none
+        a.nav-link(href="#")
+          i.icon-list
+      li.nav-item.dropdown
+        a.nav-link(data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false")
+          img.img-avatar(src="img/avatars/6.jpg" alt="admin@bootstrapmaster.com")
+        .dropdown-menu.dropdown-menu-right
+          .dropdown-header.text-center
+            strong Account
+          a.dropdown-item(href="#")
+            i.fa.fa-user
+            |  Profile
+          .divider
+          a.dropdown-item(href="#")
+            i.fa.fa-shield
+            |  Lock Account
+          a.dropdown-item(href="#")
+            i.fa.fa-lock
+            |  Logout
