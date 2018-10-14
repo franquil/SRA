@@ -24,8 +24,6 @@ terraform validate
 terraform plan
 # apply the plan, input 'yes' at prompt window
 terraform apply
-
-
 ```
 
 Destroy resources that created
@@ -36,10 +34,10 @@ terraform destroy
 
 # setup locally
 
-
-# To do list
-
-
+```
+cd _directory_of_project_
+docker-compose up -d
+```
 
 # Tools that used
 
@@ -60,5 +58,4 @@ terraform destroy
 - Frank
 - Steven
 
-# Copyright
 
