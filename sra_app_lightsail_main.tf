@@ -4,8 +4,6 @@
 #   - https://lightsail.aws.amazon.com
 #   - https://www.terraform.io/docs/providers/aws/r/lightsail_instance.html
 
-
-
 # type: aws_lightsail_instance，name: rsa_app
 # reference： 
 #   - https://www.terraform.io/docs/configuration/resources.html
@@ -43,6 +41,18 @@ resource "aws_lightsail_instance" "sra_app" {
     destination = "scripts"
   }
 
+  # copy code files to remote server
+  provisioner "file" {
+    source = "code"
+    destination = "code"
+  }
+
+  # copy docker-compose files to remote server
+  provisioner "file" {
+    source = "docker-compose.yaml"
+    destination = "docker-compose.yaml"
+  }
+
   # copy .aws credentials to the server
   provisioner "file" {
     source = ".aws"
@@ -55,8 +65,12 @@ resource "aws_lightsail_instance" "sra_app" {
   provisioner "remote-exec" {
     inline = [
       "aws lightsail attach-static-ip --static-ip-name SRA-app-Seoul --instance-name ${aws_lightsail_instance.sra_app.name}",
-      "chmod +x ./scripts/install_docker.sh",
-      "sudo ./scripts/install_docker.sh"
+      #"aws lightsail open-instance-public-ports --port-info fromPort=3306,toPort=3306,protocol=tcp --instance-name ${aws_lightsail_instance.sra_app.name}",
+      #"aws lightsail open-instance-public-ports --port-info fromPort=8080,toPort=8080,protocol=tcp --instance-name ${aws_lightsail_instance.sra_app.name}",
+      #"aws lightsail open-instance-public-ports --port-info fromPort=8081,toPort=8081,protocol=tcp --instance-name ${aws_lightsail_instance.sra_app.name}",
+      "sudo chmod +x ./scripts/install_docker.sh",
+      "./scripts/install_docker.sh",
+      "docker-compose up -d"
     ]
   }
 

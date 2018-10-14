@@ -219,3 +219,9 @@ footer{
     margin-bottom:5px;
   }
 }
+
+/* by frank */
+.user-img {
+  width: 150px;
+  padding: 7px;
+}

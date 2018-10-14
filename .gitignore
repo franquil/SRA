@@ -5,4 +5,6 @@
 .ssh/
 .terraform/
 .aws/
+node_modules/
 .env
+.info
